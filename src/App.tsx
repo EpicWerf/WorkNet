@@ -2,7 +2,6 @@ import React, { useEffect } from "react";
 import { Route } from "react-router-dom";
 import { IonApp, IonRouterOutlet, IonSplitPane } from "@ionic/react";
 import { IonReactRouter } from "@ionic/react-router";
-
 import Menu from "./components/Menu";
 
 /* Core CSS required for Ionic components to work properly */

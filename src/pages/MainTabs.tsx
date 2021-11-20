@@ -6,7 +6,7 @@ import SchedulePage from './SchedulePage';
 import SpeakerList from './SpeakerList';
 import SpeakerDetail from './SpeakerDetail';
 import SessionDetail from './SessionDetail';
-import MapView from './MapView';
+// import MapView from './MapView';
 import About from './About';
 
 interface MainTabsProps { }
@@ -26,7 +26,7 @@ const MainTabs: React.FC<MainTabsProps> = () => {
         <Route path="/tabs/speakers/:id" component={SpeakerDetail} exact={true} />
         <Route path="/tabs/schedule/:id" component={SessionDetail} />
         <Route path="/tabs/speakers/sessions/:id" component={SessionDetail} />
-        <Route path="/tabs/map" render={() => <MapView />} exact={true} />
+        {/* <Route path="/tabs/map" render={() => <MapView />} exact={true} /> */}
         <Route path="/tabs/about" render={() => <About />} exact={true} />
       </IonRouterOutlet>
       <IonTabBar slot="bottom">
