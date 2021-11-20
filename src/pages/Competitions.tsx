@@ -27,7 +27,7 @@ import {
 import { options, search } from "ionicons/icons";
 import { setSearchText } from "../data/sessions/sessions.actions";
 import { Schedule } from "../models/Schedule";
-import "./NewUser.scss";
+import "./Competitions.scss";
 
 interface OwnProps {}
 
@@ -41,9 +41,9 @@ interface DispatchProps {
   setSearchText: typeof setSearchText;
 }
 
-type NewUserProps = OwnProps & StateProps & DispatchProps;
+type CompetitionsProps = OwnProps & StateProps & DispatchProps;
 
-const NewUser: React.FC<NewUserProps> = ({ setSearchText, mode }) => {
+const Competitions: React.FC<CompetitionsProps> = ({ setSearchText, mode }) => {
   const [segment, setSegment] = useState<"all" | "favorites">("all");
   const [showSearchbar, setShowSearchbar] = useState<boolean>(false);
   const [showFilterModal, setShowFilterModal] = useState(false);
@@ -322,4 +322,4 @@ const NewUser: React.FC<NewUserProps> = ({ setSearchText, mode }) => {
   );
 };
 
-export default NewUser;
+export default Competitions;

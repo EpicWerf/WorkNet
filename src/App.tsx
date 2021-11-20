@@ -40,6 +40,7 @@ import HomeOrTutorial from "./components/HomeOrTutorial";
 import { Schedule } from "./models/Schedule";
 import RedirectToLogin from "./components/RedirectToLogin";
 import NewUser from "./pages/NewUser";
+import Competitions from "./pages/Competitions";
 
 const App: React.FC = () => {
   return (
