@@ -38,7 +38,7 @@ const Account: React.FC<AccountProps> = ({ setUsername, username }) => {
       <IonContent>
         {username &&
           (<div className="ion-padding-top ion-text-center">
-            <img src="https://www.gravatar.com/avatar?d=mm&s=140" alt="avatar" />
+            <img src="https://media-exp1.licdn.com/dms/image/C5603AQHaQyDbdMlh1g/profile-displayphoto-shrink_400_400/0/1600666937503?e=1642636800&v=beta&t=pErhc2cvEijWW2kLw5KrsI08UUnpbgSyHshgQplaYIQ" alt="avatar" />
             <h2>{ username }</h2>
             <IonList inset>
               <IonItem onClick={() => clicked('Update Picture')}>Update Picture</IonItem>
