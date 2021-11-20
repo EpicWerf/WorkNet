@@ -40,7 +40,7 @@ import Tutorial from "./pages/Tutorial";
 import HomeOrTutorial from "./components/HomeOrTutorial";
 import { Schedule } from "./models/Schedule";
 import RedirectToLogin from "./components/RedirectToLogin";
-import UserForm from "./pages/UserForm";
+import NewUser from "./pages/NewUser";
 
 const App: React.FC = () => {
   return (
@@ -91,7 +91,7 @@ const IonicApp: React.FC<IonicAppProps> = ({
                 which makes transitions between tabs and non tab pages smooth
                 */}
             <Route path="/tabs" render={() => <MainTabs />} />
-            <Route path="/userForm" component={UserForm} />
+            <Route path="/NewUser" component={NewUser} />
             <Route path="/account" component={Account} />
             <Route path="/login" component={Login} />
             <Route path="/signup" component={Signup} />
