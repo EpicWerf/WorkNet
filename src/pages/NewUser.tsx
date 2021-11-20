@@ -118,24 +118,25 @@ const NewUser: React.FC<NewUserProps> = ({ setSearchText, mode }) => {
 
   const SubmitForm = async () => {
     const userObject = {
-      userEmail: userEmail,
-      firstName: firstName,
-      lastName: lastName,
-      birthdate: birthdate,
-      university: university,
-      generalInterest: generalInterest,
-      specificInterest: specificInterest,
-      skills: skills,
-      competitions: competitions,
+      "userEmail": userEmail,
+      "firstName": firstName,
+      "lastName": lastName,
+      "birthdate": birthdate,
+      "university": university,
+      "generalInterest": generalInterest,
+      "specificInterest": specificInterest,
+      "skills": skills,
+      "competitions": competitions,
     };
     const url = `https://7hwyb7dwzj.execute-api.us-east-1.amazonaws.com/createUser`;
     try {
       const response = await axios.post(url, userObject, {
         headers: {
           "Content-Type": "application/json;charset=UTF-8",
-          Accept: "application/json",
+          "Accept": "application/json",
           "Accept-Charset": "UTF-8",
-          connection: "keep-alive",
+          "connection": "keep-alive",
+          "Access-Control-Allow-Origin": "*",
           // Authorization: "Bearer " + process.env.ADOBE_AUTH_TOKEN,
         },
       });
