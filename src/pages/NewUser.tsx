@@ -24,12 +24,15 @@ import {
   IonItemDivider,
   IonItemGroup,
   IonCardHeader,
+  IonAlert,
+  useIonAlert,
 } from "@ionic/react";
 import { options, search } from "ionicons/icons";
 import { setSearchText } from "../data/sessions/sessions.actions";
 import { Schedule } from "../models/Schedule";
 import "./NewUser.scss";
 import axios, { AxiosResponse } from "axios";
+import { Redirect } from "react-router";
 
 interface OwnProps {}
 
@@ -65,6 +68,7 @@ const NewUser: React.FC<NewUserProps> = ({ setSearchText, mode }) => {
 
   const pageRef = useRef<HTMLElement>(null);
   const ios = mode === "ios";
+  const [present] = useIonAlert();
 
   const doRefresh = () => {
     setTimeout(() => {
@@ -116,7 +120,10 @@ const NewUser: React.FC<NewUserProps> = ({ setSearchText, mode }) => {
     setSkills(copy);
   };
 
+
+
   const SubmitForm = async () => {
+    
     const userObject = {
       "userEmail": userEmail,
       "firstName": firstName,
@@ -233,10 +240,10 @@ const NewUser: React.FC<NewUserProps> = ({ setSearchText, mode }) => {
               {/* ############## INFORMATION ABOUT THE USER ############## */}
 
               <IonItem>
-                <IonLabel position="floating">userEmail</IonLabel>
+                <IonLabel position="floating">Email</IonLabel>
                 <IonInput
                   value={userEmail}
-                  placeholder="Enter your userEmail here..."
+                  placeholder="Enter your email here..."
                   onIonChange={(e) => setUserEmail(e.detail.value!)}
                   clearInput
                 ></IonInput>
@@ -298,7 +305,7 @@ const NewUser: React.FC<NewUserProps> = ({ setSearchText, mode }) => {
                 ></IonInput>
               </IonItem>
               <IonItem style={{ paddingBottom: "50px" }}>
-                <IonLabel>Industy Interest:</IonLabel>
+                <IonLabel>Industry of Interest:</IonLabel>
                 <IonSelect
                   value={competitions}
                   onIonChange={(e) => setCompetitions(e.detail.value!)}
@@ -324,7 +331,7 @@ const NewUser: React.FC<NewUserProps> = ({ setSearchText, mode }) => {
                 </IonCardTitle>
               </IonItemDivider>
               <IonItem>
-                <IonLabel>Specific Interest</IonLabel>
+                <IonLabel>Work Related Interests</IonLabel>
                 <IonSelect
                   value={specificInterest}
                   onIonChange={(e) => setSpecificInterest(e.detail.value!)}
@@ -363,7 +370,23 @@ const NewUser: React.FC<NewUserProps> = ({ setSearchText, mode }) => {
               </IonButton>
             </IonItem>
 
-            <IonButton onClick={SubmitForm}>Submit</IonButton>
+            <IonButton
+            expand="block"
+            onClick={() =>
+              present({
+              cssClass: 'my-css',
+              header: 'Congrats! You\'re almost there!',
+              // message: 'Continue to create your username and password!',
+              buttons: [
+                'Cancel',
+                { text: 'Sign Me Up!', handler: (d) => console.log("button submitted") },
+              ],
+              onDidDismiss: (e) => console.log('did dismiss'),
+            })
+          }
+        >
+          Submit
+        </IonButton>
           </IonCard>
         </IonContent>
       </IonPage>
