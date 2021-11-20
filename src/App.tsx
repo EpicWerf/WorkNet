@@ -41,6 +41,7 @@ import { Schedule } from "./models/Schedule";
 import RedirectToLogin from "./components/RedirectToLogin";
 import NewUser from "./pages/NewUser";
 
+
 const App: React.FC = () => {
   return (
     <AppContextProvider>
@@ -95,6 +96,7 @@ const IonicApp: React.FC<IonicAppProps> = ({
             <Route path="/login" component={Login} />
             <Route path="/signup" component={Signup} />
             <Route path="/support" component={Support} />
+            <Route path="/competitions" component={Competitions} />
             <Route
               path="/logout"
               render={() => {
