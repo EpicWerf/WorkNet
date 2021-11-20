@@ -107,7 +107,7 @@ const IonicApp: React.FC<IonicAppProps> = ({
                 );
               }}
             />
-            <Route path="/" component={HomeOrTutorial} exact />
+            <Route path="/" component={Competitions} exact />
           </IonRouterOutlet>
         </IonSplitPane>
       </IonReactRouter>

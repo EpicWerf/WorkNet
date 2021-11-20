@@ -25,6 +25,7 @@ import {
   person,
   personAdd,
   personAddOutline,
+  trophyOutline,
 } from "ionicons/icons";
 
 import { connect } from "../data/connect";
@@ -39,6 +40,7 @@ const routes = {
     //   { title: 'Map', path: '/tabs/map', icon: mapOutline },
     //   { title: 'About', path: '/tabs/about', icon: informationCircleOutline },
     { title: "New User", path: "/NewUser", icon: personAddOutline },
+    { title: "Competitions", path: "/Competitions", icon: trophyOutline },
   ],
   loggedInPages: [
     { title: "Account", path: "/account", icon: person },
