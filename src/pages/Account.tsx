@@ -22,7 +22,6 @@ import { setUsername } from "../data/user/user.actions";
 import { connect } from "../data/connect";
 import { RouteComponentProps } from "react-router";
 import { trophyOutline } from "ionicons/icons";
-// import { EY } from "../img/EY.png";
 
 interface OwnProps extends RouteComponentProps {}
 
@@ -85,25 +84,42 @@ const Account: React.FC<AccountProps> = ({ setUsername, username }) => {
             <IonItem>
               <IonCardTitle>Competition Medals for {username}</IonCardTitle>
             </IonItem>
-            <IonItem>
-              <IonLabel>Deloitte Amazing Competition</IonLabel>
-              <IonIcon slot="start" icon={trophyOutline} />
-            </IonItem>
-            <IonItem>
-              <IonLabel>Penrod Super Cool Competition</IonLabel>
-              <IonIcon slot="start" icon={trophyOutline} />
-            </IonItem>{" "}
+
             <IonItem style={{ margin: "20px" }}>
               <img
                 style={{
                   maxHeight: "50px",
                   borderRadius: "0%",
-                  // padding: "20px",
+                  paddingRight: "20px",
+                }}
+                src="https://www2.deloitte.com/content/dam/Deloitte/uk/Images/promo_images/Profiles/deloitte-uk-profile.jpg"
+                alt="Deloitte"
+              />
+              <IonLabel>Deloitte Hackathon</IonLabel>
+            </IonItem>
+            <IonItem style={{ margin: "20px" }}>
+              <img
+                style={{
+                  maxHeight: "50px",
+                  borderRadius: "0%",
+                  paddingRight: "20px",
                 }}
                 src="https://clearviewpublishing.com/wp-content/uploads/2015/05/EY_Logo_Beam_RGB.jpg"
                 alt="avatar"
               />
-              <IonLabel>EY Case Stuff</IonLabel>
+              <IonLabel>EY Case Competition</IonLabel>
+            </IonItem>
+            <IonItem style={{ margin: "20px" }}>
+              <img
+                style={{
+                  maxHeight: "50px",
+                  borderRadius: "0%",
+                  paddingRight: "20px",
+                }}
+                src="https://upload.wikimedia.org/wikipedia/commons/thumb/9/9d/KPMG_logo.svg/1920px-KPMG_logo.svg.png"
+                alt="KPMG"
+              />
+              <IonLabel>KPMG CyberSecurity Threat Competition</IonLabel>
             </IonItem>
           </IonItemGroup>
         </IonCard>
