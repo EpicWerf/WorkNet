@@ -23,11 +23,13 @@ import {
   IonSelectOption,
   IonItemDivider,
   IonItemGroup,
+  IonCardHeader,
 } from "@ionic/react";
 import { options, search } from "ionicons/icons";
 import { setSearchText } from "../data/sessions/sessions.actions";
 import { Schedule } from "../models/Schedule";
 import "./NewUser.scss";
+import axios, { AxiosResponse } from "axios";
 
 interface OwnProps {}
 
@@ -51,14 +53,15 @@ const NewUser: React.FC<NewUserProps> = ({ setSearchText, mode }) => {
   const [showCompleteToast, setShowCompleteToast] = useState(false);
 
   // ####### COLLECT INFORMATION ABOUT THE USER AND STORE IT IN STATE ########
-  const [email, setEmail] = useState<string>("");
+  const [userEmail, setUserEmail] = useState<string>("");
   const [firstName, setFirstName] = useState<string>("");
   const [lastName, setLastName] = useState<string>("");
-  const [dateOfBirth, setDateOfBirth] = useState<string>("");
-  const [universityName, setUniversityName] = useState<string>("");
-  const [intendedMajor, setIntendedMajor] = useState<string>("");
-  const [intendedWork, setIntendedWork] = useState<string>("");
-  const [skillList, setSkillList] = useState([""]);
+  const [birthdate, setBirthdate] = useState<string>("");
+  const [university, setUniversity] = useState<string>("");
+  const [generalInterest, setGeneralInterest] = useState<string>("");
+  const [specificInterest, setSpecificInterest] = useState<string>("");
+  const [skills, setSkills] = useState<string[]>([""]);
+  const [competitions, setCompetitions] = useState<string[]>([""]);
 
   const pageRef = useRef<HTMLElement>(null);
   const ios = mode === "ios";
@@ -77,11 +80,11 @@ const NewUser: React.FC<NewUserProps> = ({ setSearchText, mode }) => {
     const newSkill = event.target.value;
     const index: number = event.target["skill-index"];
 
-    const copy = skillList;
+    const copy = skills;
 
     try {
       copy[index] = newSkill;
-      setSkillList([...skillList]);
+      setSkills([...skills]);
     } catch (error) {
       console.log(error);
     }
@@ -93,29 +96,58 @@ const NewUser: React.FC<NewUserProps> = ({ setSearchText, mode }) => {
     const newSkill = "";
 
     //concatenate the new skill to the skill arry
-    setSkillList(() => skillList.concat([newSkill]));
+    setSkills(() => skills.concat([newSkill]));
   };
 
   //removes the last skill when a user clicks the red "remove skill" button
   const removeSkill = () => {
     //set up a new list which is just a copy of the old list
-    let copy = skillList;
+    let copy = skills;
 
     //if there is more than one skill, remove the last skill in the array
-    if (skillList.length > 1) {
-      copy = skillList.slice(0, copy.length - 1);
+    if (skills.length > 1) {
+      copy = skills.slice(0, copy.length - 1);
     } else {
       //if there is only one skill, alert the user and do nothing
       alert("Cannot remove the first skill");
     }
 
     //send the copy with one less skill to state
-    setSkillList(copy);
+    setSkills(copy);
+  };
+
+  const SubmitForm = async () => {
+    const userObject = {
+      userEmail: userEmail,
+      firstName: firstName,
+      lastName: lastName,
+      birthdate: birthdate,
+      university: university,
+      generalInterest: generalInterest,
+      specificInterest: specificInterest,
+      skills: skills,
+      competitions: competitions,
+    };
+    const url = `https://7hwyb7dwzj.execute-api.us-east-1.amazonaws.com/createUser`;
+    try {
+      const response = await axios.post(url, userObject, {
+        headers: {
+          "Content-Type": "application/json;charset=UTF-8",
+          Accept: "application/json",
+          "Accept-Charset": "UTF-8",
+          connection: "keep-alive",
+          // Authorization: "Bearer " + process.env.ADOBE_AUTH_TOKEN,
+        },
+      });
+      console.log(response);
+    } catch (error) {
+      console.log(error);
+    }
   };
 
   return (
     <>
-      <IonPage ref={pageRef} id="schedule-page">
+      <IonPage ref={pageRef} id="new-user-page">
         <IonHeader translucent={true}>
           <IonToolbar>
             {!showSearchbar && (
@@ -200,11 +232,11 @@ const NewUser: React.FC<NewUserProps> = ({ setSearchText, mode }) => {
               {/* ############## INFORMATION ABOUT THE USER ############## */}
 
               <IonItem>
-                <IonLabel position="floating">Email</IonLabel>
+                <IonLabel position="floating">userEmail</IonLabel>
                 <IonInput
-                  value={email}
-                  placeholder="Enter your email here..."
-                  onIonChange={(e) => setEmail(e.detail.value!)}
+                  value={userEmail}
+                  placeholder="Enter your userEmail here..."
+                  onIonChange={(e) => setUserEmail(e.detail.value!)}
                   clearInput
                 ></IonInput>
               </IonItem>
@@ -233,8 +265,8 @@ const NewUser: React.FC<NewUserProps> = ({ setSearchText, mode }) => {
                 <IonLabel position="fixed">Date Of Birth</IonLabel>
                 <IonInput
                   type="date"
-                  value={dateOfBirth}
-                  onIonChange={(e) => setDateOfBirth(e.detail.value!)}
+                  value={birthdate}
+                  onIonChange={(e) => setBirthdate(e.detail.value!)}
                   clearInput
                 ></IonInput>
               </IonItem>
@@ -249,28 +281,26 @@ const NewUser: React.FC<NewUserProps> = ({ setSearchText, mode }) => {
               <IonItem>
                 <IonLabel position="floating">University Name</IonLabel>
                 <IonInput
-                  value={universityName}
+                  value={university}
                   placeholder="Enter your university name here..."
-                  onIonChange={(e) => setUniversityName(e.detail.value!)}
+                  onIonChange={(e) => setUniversity(e.detail.value!)}
                   clearInput
                 ></IonInput>
               </IonItem>
               <IonItem>
                 <IonLabel position="floating">Intended Major</IonLabel>
                 <IonInput
-                  value={intendedMajor}
+                  value={generalInterest}
                   placeholder="Enter your intended major here..."
-                  onIonChange={(e) => setIntendedMajor(e.detail.value!)}
+                  onIonChange={(e) => setGeneralInterest(e.detail.value!)}
                   clearInput
                 ></IonInput>
               </IonItem>
               <IonItem style={{ paddingBottom: "50px" }}>
-                <IonLabel>
-                  Select the area you are in intereseted in for work
-                </IonLabel>
+                <IonLabel>Industy Interest:</IonLabel>
                 <IonSelect
-                  value={intendedWork}
-                  onIonChange={(e) => setIntendedWork(e.detail.value!)}
+                  value={competitions}
+                  onIonChange={(e) => setCompetitions(e.detail.value!)}
                 >
                   <IonSelectOption value="Technology">
                     Technology
@@ -281,24 +311,40 @@ const NewUser: React.FC<NewUserProps> = ({ setSearchText, mode }) => {
                   <IonSelectOption value="Finance">Finance</IonSelectOption>
                   <IonSelectOption value="Marketing">Marketing</IonSelectOption>
                 </IonSelect>
-              </IonItem>{" "}
+              </IonItem>
             </IonItemGroup>
 
-            {/* ############## INFORMATION ABOUT SKILLS ############## */}
+            {/* ############## INFORMATION ABOUT INTERESTS OR SKILLS ############## */}
 
             <IonItemGroup>
               <IonItemDivider>
                 <IonCardTitle>
-                  A little more about what you already know:
+                  A little more about your interests and skills:
                 </IonCardTitle>
               </IonItemDivider>
-              {skillList.map((skill, index) => (
+              <IonItem>
+                <IonLabel>Specific Interest</IonLabel>
+                <IonSelect
+                  value={specificInterest}
+                  onIonChange={(e) => setSpecificInterest(e.detail.value!)}
+                >
+                  <IonSelectOption value="Engineering">
+                    Engineering
+                  </IonSelectOption>
+                  <IonSelectOption value="Product Management">
+                    Product Management
+                  </IonSelectOption>
+                  <IonSelectOption value="IT">IT</IonSelectOption>
+                  <IonSelectOption value="Analytics">Analytics</IonSelectOption>
+                </IonSelect>
+              </IonItem>
+              {skills.map((skill, index) => (
                 <IonItem key={"skill" + index}>
                   <IonLabel position="floating">{`Skill ${
                     index + 1
                   }`}</IonLabel>
                   <IonInput
-                    value={skillList[index]}
+                    value={skills[index]}
                     skill-index={index}
                     onIonChange={handleSkillChange}
                     placeholder={`Enter Skill ${index + 1} here...`}
@@ -315,6 +361,8 @@ const NewUser: React.FC<NewUserProps> = ({ setSearchText, mode }) => {
                 Add Skill
               </IonButton>
             </IonItem>
+
+            <IonButton onClick={SubmitForm}>Submit</IonButton>
           </IonCard>
         </IonContent>
       </IonPage>
